@@ -66,9 +66,9 @@ const Navbar = () => {
 
 
 
-        {/* MENU */}
+        {/* MENU — always visible (icons only on mobile, icons+labels on desktop) */}
 
-        <nav className="hidden md:flex nav-pill-container">
+        <nav className="nav-pill-container">
 
           {/* Sliding Indicator Pill */}
           <div
@@ -87,15 +87,25 @@ const Navbar = () => {
                 ref={el => navRefs.current[index] = el}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className={`relative z-10 px-5 py-2 flex items-center gap-2.5 rounded-xl transition-all duration-300 ${isActive || isHovered
-                  ? "text-[#0b0f19] dark:text-white"
-                  : "text-[#5b6270] dark:text-gray-400"
-                  }`}
+                style={{
+                  position: "relative",
+                  zIndex: 10,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "8px 14px",
+                  borderRadius: "12px",
+                  textDecoration: "none",
+                  color: isActive || isHovered ? "var(--text-main)" : "#5b6270",
+                  transition: "color 0.3s ease",
+                  fontWeight: 600,
+                  fontSize: "0.9rem",
+                }}
               >
                 <item.Icon
                   size={16}
                   strokeWidth={isActive || isHovered ? 2.5 : 2}
-                  className={`transition-transform duration-300 ${isHovered ? "scale-110" : ""}`}
+                  style={{ transition: "transform 0.3s", transform: isHovered ? "scale(1.1)" : "scale(1)", flexShrink: 0 }}
                 />
                 <span className="nav-label">
                   {item.label}
@@ -110,18 +120,30 @@ const Navbar = () => {
 
         {/* RIGHT SIDE */}
 
-        <div className="flex items-center gap-4">
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
 
 
-          {/* CONTACT BUTTON */}
+          {/* CONTACT BUTTON — hidden on mobile */}
 
           <Link
             to="/contact"
-            className="px-6 h-[40px] flex items-center rounded-full bg-black text-white dark:bg-white dark:text-black font-medium transition hover:opacity-90"
+            className="contact-btn-full"
+            style={{
+              padding: "0 20px",
+              height: "40px",
+              display: "flex",
+              alignItems: "center",
+              borderRadius: "100px",
+              background: isDark ? "#fff" : "#0b0f19",
+              color: isDark ? "#0b0f19" : "#fff",
+              fontWeight: 600,
+              fontSize: "0.88rem",
+              textDecoration: "none",
+              transition: "opacity 0.2s ease",
+              whiteSpace: "nowrap",
+            }}
           >
-
             Contact
-
           </Link>
 
 

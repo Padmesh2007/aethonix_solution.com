@@ -264,7 +264,7 @@
     max-width: 100%;
   }
 
-  .head-card { height: 460px; }
+  .head-card { min-height: 420px; height: auto; }
 
   .value-card {
     width: 700px;
@@ -310,105 +310,80 @@
     margin-bottom: 12px;
   }
 
-  /* --- Heads / Team grid: 2-col on all mobile --- */
+  /* --- Heads / Team grid --- */
   .heads-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 16px;
     max-width: 100%;
-    padding: 0;
+    padding: 0 4px;
   }
 
-  /* Card: fixed height so 3D flip works on mobile too */
+  /* Card: auto height so image is always visible */
   .head-card {
-    height: 300px;
-    perspective: 900px;
+    height: auto;
+    min-height: 360px;
+    perspective: 1000px;
   }
 
-  /* Re-enable flip on mobile */
   .head-card-inner {
-    position: relative !important;
-    width: 100% !important;
-    height: 100% !important;
-    display: block !important;
-    transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    transform-style: preserve-3d !important;
+    min-height: 360px;
   }
 
-  /* Flip on tap/hover on mobile */
-  .head-card:hover .head-card-inner,
-  .head-card:focus-within .head-card-inner {
+  .head-card-front {
+    min-height: 360px;
+  }
+
+  .head-card-back {
+    min-height: 360px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  /* On mobile: tap to flip */
+  .head-card:hover .head-card-inner {
+    transform: none;
+  }
+  .head-card-inner.is-flipped {
     transform: rotateY(180deg) !important;
   }
 
-  /* Front: restore absolute positioning for flip */
-  .head-card-front {
-    position: absolute !important;
-    width: 100% !important;
-    height: 100% !important;
-    transform: rotateY(0deg) !important;
-    backface-visibility: hidden !important;
-    -webkit-backface-visibility: hidden !important;
-  }
-
-  /* Back: restore for flip */
-  .head-card-back {
-    display: flex !important;
-    position: absolute !important;
-    width: 100% !important;
-    height: 100% !important;
-    padding: 16px 12px !important;
-  }
-
   .head-card-img-wrap {
-    /* Fixed height so image fills top ~60% of card */
-    height: 170px;
-    aspect-ratio: unset;
-    flex-shrink: 0;
+    aspect-ratio: 1 / 1.1;
   }
 
-  /* Center all card body content on mobile */
   .head-card-body {
-    padding: 10px 10px 12px;
+    padding: 10px 12px 14px;
     gap: 4px;
-    align-items: center;
-    text-align: center;
-    flex: 1;
-    overflow: hidden;
-  }
-
-  .head-card-icon-badge {
-    width: 24px;
-    height: 24px;
-    border-radius: 7px;
-    margin-bottom: 3px;
   }
 
   .head-card-name {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    line-height: 1.25;
-    text-align: center;
   }
 
   .head-card-role {
-    font-size: 0.55rem;
-    padding: 2px 8px;
-    letter-spacing: 0.03em;
-    text-align: center;
-    white-space: normal;
-    line-height: 1.3;
+    font-size: 0.6rem;
+    padding: 3px 8px;
   }
 
-  /* Heads hero responsive */
-  .heads-hero-title {
-    font-size: clamp(1.8rem, 9vw, 2.8rem) !important;
+  .head-card-icon-badge {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    margin-bottom: 2px;
   }
-  .heads-hero-desc { font-size: 0.95rem; }
 
-  .head-card-back-title { font-size: 0.9rem; }
-  .head-card-back-role { font-size: 0.6rem; margin-bottom: 8px; }
-  .head-card-back-desc { font-size: 0.72rem; line-height: 1.45; }
-  .head-card-back-icon { margin-bottom: 8px; }
+  .head-card-back {
+    padding: 20px 14px;
+  }
+
+  .head-card-back-title { font-size: 0.95rem; }
+  .head-card-back-role { font-size: 0.65rem; margin-bottom: 10px; }
+  .head-card-back-desc { font-size: 0.8rem; line-height: 1.5; }
+  .head-card-back-icon { margin-bottom: 10px; }
 
   /* --- Values section --- */
   .value-card-container {
@@ -497,32 +472,23 @@
    ──────────────────────────── */
 @media (max-width: 480px) {
   .hero-title {
-    font-size: clamp(1.4rem, 7.5vw, 1.9rem) !important;
+    font-size: clamp(1.5rem, 8vw, 2rem) !important;
   }
-  .section-title { font-size: clamp(1.3rem, 5.5vw, 1.7rem); }
+  .section-title { font-size: clamp(1.4rem, 6vw, 1.8rem); }
 
   .heads-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
-  /* Smaller fixed height for 480px screens */
-  .head-card { height: 260px; }
+  .head-card { min-height: 300px; height: auto; }
+  .head-card-inner { min-height: 300px; }
+  .head-card-front { min-height: 300px; }
 
-  .head-card-img-wrap { height: 145px; }
-
-  .head-card-name { font-size: 0.68rem; line-height: 1.25; }
-  .head-card-role { font-size: 0.5rem; padding: 2px 6px; white-space: normal; }
-  .head-card-body { padding: 8px 8px 10px; align-items: center; text-align: center; }
-  .head-card-icon-badge { width: 20px; height: 20px; border-radius: 6px; margin-bottom: 2px; }
-
-  .head-card-back-title { font-size: 0.8rem; }
-  .head-card-back-role { font-size: 0.55rem; }
-  .head-card-back-desc { font-size: 0.65rem; }
-  .head-card-back-icon svg { width: 28px; height: 28px; }
-
-  .heads-hero-title { font-size: clamp(1.5rem, 7.5vw, 2.2rem) !important; }
-  .heads-hero-desc { font-size: 0.9rem; }
+  .head-card-name { font-size: 0.72rem; }
+  .head-card-role { font-size: 0.56rem; padding: 2px 6px; }
+  .head-card-body { padding: 8px 10px 12px; }
+  .head-card-icon-badge { width: 22px; height: 22px; border-radius: 6px; margin-bottom: 2px; }
 
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .stat-number { font-size: 1.6rem; }
@@ -538,28 +504,21 @@
    EXTRA SMALL  (max-width: 380px)
    ──────────────────────────── */
 @media (max-width: 380px) {
-  .header-container { padding: 0 10px; height: 52px; }
-  .logo-circle { width: 30px; height: 30px; }
-  .container { padding: 0 10px; }
-  .page-section { padding: 28px 10px; }
+  .header-container { padding: 0 12px; height: 54px; }
+  .logo-circle { width: 32px; height: 32px; }
+  .container { padding: 0 12px; }
+  .page-section { padding: 32px 12px; }
 
-  .heads-grid { gap: 8px; }
-  /* Extra small: keep flip but shrink card */
-  .head-card { height: 240px; }
-  .head-card-img-wrap { height: 132px; }
+  .head-card { min-height: 260px; height: auto; }
+  .head-card-inner { min-height: 260px; }
+  .head-card-front { min-height: 260px; }
 
-  .head-card-name { font-size: 0.62rem; }
-  .head-card-role { font-size: 0.48rem; padding: 2px 5px; }
-  .head-card-body { padding: 6px 6px 8px; gap: 2px; align-items: center; text-align: center; }
-  .head-card-icon-badge { width: 18px; height: 18px; }
+  .head-card-name { font-size: 0.65rem; }
+  .head-card-role { font-size: 0.5rem; padding: 2px 5px; letter-spacing: 0.02em; }
+  .head-card-body { padding: 6px 8px 10px; gap: 2px; }
 
-  .head-card-back-title { font-size: 0.75rem; }
-  .head-card-back-role { font-size: 0.5rem; }
-  .head-card-back-desc { font-size: 0.6rem; line-height: 1.4; }
-
-  .heads-hero-title { font-size: clamp(1.2rem, 6.5vw, 1.6rem) !important; }
-  .hero-title { font-size: clamp(1.2rem, 6.5vw, 1.6rem) !important; }
-  .section-title { font-size: 1.2rem; }
+  .hero-title { font-size: clamp(1.3rem, 7vw, 1.8rem) !important; }
+  .section-title { font-size: 1.3rem; }
 }
 
 
@@ -1694,14 +1653,9 @@
   height: 100%;
   overflow: hidden;
   z-index: 0;
+  /* Behind everything */
   pointer-events: none;
-  /* Light mode: no tinted glow */
-  background: transparent;
-}
-
-/* Dark mode: subtle cyan glow at center */
-.dark .assassin-grid-container {
-  background: radial-gradient(circle at 50% 50%, rgba(165, 243, 252, 0.04) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(165, 243, 252, 0.05) 0%, transparent 70%);
 }
 
 .assassin-grid-3d {
@@ -1710,24 +1664,20 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  /* LIGHT MODE: invisible grid — no dark lines on white background */
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0) 1px, transparent 1px);
+    linear-gradient(rgba(165, 243, 252, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(165, 243, 252, 0.1) 1px, transparent 1px);
   background-size: 60px 60px;
   transform: perspective(600px) rotateX(60deg);
   transform-origin: center center;
   mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
   -webkit-mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
-  opacity: 0;
 }
 
-/* DARK MODE: show the glowing cyan grid */
 .dark .assassin-grid-3d {
-  opacity: 1;
   background-image:
-    linear-gradient(rgba(165, 243, 252, 0.18) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(165, 243, 252, 0.18) 1px, transparent 1px);
+    linear-gradient(rgba(165, 243, 252, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(165, 243, 252, 0.15) 1px, transparent 1px);
 }
 
 .assassin-grid-glow {
@@ -1995,61 +1945,23 @@
   background: rgba(255, 255, 255, 0.07) !important;
 }
 
-/* ── HeadsPage Hero ── */
-.heads-hero-section {
-  padding-bottom: 32px !important;
-}
-
-.heads-hero-eyebrow {
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent, #ffbc0d);
-  margin: 0 0 14px;
-}
-
-.heads-hero-title {
-  margin-bottom: 20px !important;
-  color: var(--text-main) !important;
-  font-size: clamp(2.6rem, 7vw, 80px) !important;
-}
-
-.heads-hero-desc {
-  max-width: 540px;
-  margin: 0 auto;
-  color: var(--text-light);
-  font-size: 1.05rem;
-  line-height: 1.75;
-}
-
-.heads-divider {
-  height: 1px;
-  margin-bottom: 32px;
-}
-
-.heads-grid-section {
-  padding-top: 0 !important;
-  padding-bottom: 72px !important;
-}
-
-/* Grid: 2 cols desktop */
+/* Grid: 2 cols desktop — fully visible images */
 .heads-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
-  max-width: 900px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
 /* Individual card container for 3D Flip */
 .head-card {
   position: relative;
-  height: 480px;
+  height: auto;
+  min-height: 460px;
   perspective: 1500px;
   background: transparent;
   border: none;
-  cursor: pointer;
 }
 
 
@@ -2057,13 +1969,12 @@
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: 460px;
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   transform-style: preserve-3d;
 }
 
-/* Hover flip (desktop) */
 .head-card:hover .head-card-inner,
-/* Tap flip (mobile — JS toggles this class) */
 .head-card-inner.is-flipped {
   transform: rotateY(180deg);
 }
@@ -2072,6 +1983,8 @@
 .head-card-front,
 .head-card-back {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden;
@@ -2084,15 +1997,14 @@
 
 /* Front side specific */
 .head-card-front {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .dark .head-card-front {
-  background: #1c2030;
-  border-color: rgba(255, 255, 255, 0.10);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Back side specific */
@@ -2104,8 +2016,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   border: 1px solid var(--primary);
 }
 
@@ -2125,6 +2037,7 @@
   font-weight: 800;
   margin-bottom: 8px;
   color: #fff;
+  text-align: left;
 }
 
 .head-card-back-role {
@@ -2134,41 +2047,36 @@
   letter-spacing: 0.05em;
   color: var(--primary);
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .head-card-back-desc {
   font-size: 0.92rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
+  text-align: left;
 }
 
 /* Image wrapper */
 .head-card-img-wrap {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: #e5e7eb;
+  aspect-ratio: 3/3.2;
+  background: #f3f4f6;
   flex-shrink: 0;
 }
 
 .dark .head-card-img-wrap {
-  background: #2a2f3d;
+  background: #1a1c22;
 }
 
 .head-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: top center;
   display: block;
   transition: transform 0.5s ease;
-  /* Ensure image renders with full brightness */
-  filter: brightness(1.0) contrast(1.0);
-}
-
-.dark .head-card-img {
-  /* Slight brightness boost in dark mode to counteract dark card background */
-  filter: brightness(1.08) contrast(1.02);
 }
 
 .head-card:hover .head-card-img {
@@ -2238,4 +2146,72 @@
   background: color-mix(in srgb, var(--role-color, #ffbc0d) 12%, transparent);
   padding: 4px 12px;
   border-radius: 100px;
+}
+
+/* ---- Heads Hero Section ---- */
+.heads-hero-section {
+  padding-bottom: 24px;
+}
+
+.heads-hero-eyebrow {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 16px;
+}
+
+.heads-hero-title {
+  font-size: clamp(2rem, 6vw, 3.6rem) !important;
+  color: #111827;
+  margin: 0 0 20px;
+  letter-spacing: -0.03em;
+}
+
+.dark .heads-hero-title {
+  color: #f8fafc;
+}
+
+.heads-hero-desc {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #6b7280;
+}
+
+.dark .heads-hero-desc {
+  color: var(--text-muted);
+}
+
+.heads-divider {
+  height: 1px;
+  margin: 0 auto;
+}
+
+.heads-grid-section {
+  padding-top: 40px;
+}
+
+/* Last card centering when odd count */
+.heads-grid > *:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  max-width: 420px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .heads-hero-title {
+    font-size: clamp(1.8rem, 8vw, 2.6rem) !important;
+  }
+  .heads-hero-desc {
+    font-size: 0.9rem;
+  }
+  .heads-grid > *:last-child:nth-child(odd) {
+    grid-column: auto;
+    max-width: 100%;
+    margin: 0;
+  }
 }

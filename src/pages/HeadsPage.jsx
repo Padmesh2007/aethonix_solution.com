@@ -161,4 +161,3 @@ const HeadsPage = () => {
 };
 
 export default HeadsPage;
-
